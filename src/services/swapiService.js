@@ -1,4 +1,5 @@
 
+
 export default class SwapiService {
     _apiBase = 'https://swapi.co/api';
 
@@ -14,32 +15,65 @@ export default class SwapiService {
 
     async getAllPeople () {
         const res = await this.getResource(`/people/`);
-        return res.results;
+        return res.results.map(this._transformPerson);
     }
-    getPerson (id) {
-        return this.getResource(`/people/${id}`)
+    async getPerson (id) {
+        const person = await this.getResource(`/people/${id}`);
+        return this._transformPerson(person);
     }
     async getAllPlanets () {
         const res = await this.getResource(`/planets/`);
-        return res.results;
+        return res.results.map(this._transformPlanet);
     }
-    getPlanet (id) {
-        return this.getResource(`/planets/${id}`)
+    async getPlanet (id) {
+        const planet = await this.getResource(`/planets/${id}`);
+        return this._transformPlanet(planet);
+
     }
     async getAllStarShips () {
         const res = await this.getResource(`/starships/`);
-        return res.results;
+        return res.results.map(this._transformStarShip);
     }
-    getStarShip (id) {
-        return this.getResource(`/starships/${id}`)
+    async getStarShip (id) {
+        const starShip = await this.getResource(`/starships/${id}`);
+        return this._transformStarShip(starShip);
+    }
+
+    _extractId (item){
+        const idRegExp = /\/([0-9]*)\/$/;  //получение id из строки url
+        return item.url.match(idRegExp)[1];
+    }
+    _transformPlanet (planet) {
+        return{
+            id: this._extractId(planet),
+            name: planet.name,
+            population: planet.population,
+            rotationPeriod: planet.rotation_period,
+            diameter: planet.diameter
+        }
+    }
+    _transformPerson (person) {
+        return{
+            id: this._extractId(person),
+            name: person.name,
+            gender: person.gender,
+            birthYear: person.birthYear,
+            eyeColor: person.eyeColor
+        }
+    }
+    _transformStarShip (starShip) {
+        return{
+            id: this._extractId(starShip),
+            name: starShip.name,
+            model: starShip.model,
+            manufacturer: starShip.manufacturer,
+            costInCredits: starShip.costInCredits,
+            lenght: starShip.lenght,
+            crew: starShip.crew,
+            passengers: starShip.passengers,
+            cargoCapacity: starShip.cargoCapacity
+        }
     }
 }
 
-const swapi = new SwapiService();
-
-swapi.getAllPeople().then((people) => {
-    people.forEach((p) => {
-        console.log(p.name)
-    })
-})
 
