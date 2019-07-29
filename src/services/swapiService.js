@@ -43,7 +43,7 @@ export default class SwapiService {
         const idRegExp = /\/([0-9]*)\/$/;  //получение id из строки url
         return item.url.match(idRegExp)[1];
     }
-    _transformPlanet (planet) {
+    _transformPlanet = (planet) =>{
         return{
             id: this._extractId(planet),
             name: planet.name,
@@ -51,8 +51,8 @@ export default class SwapiService {
             rotationPeriod: planet.rotation_period,
             diameter: planet.diameter
         }
-    }
-    _transformPerson (person) {
+    };
+    _transformPerson = (person) => {
         return{
             id: this._extractId(person),
             name: person.name,
@@ -60,8 +60,8 @@ export default class SwapiService {
             birthYear: person.birthYear,
             eyeColor: person.eyeColor
         }
-    }
-    _transformStarShip (starShip) {
+    };
+    _transformStarShip = (starShip) => {
         return{
             id: this._extractId(starShip),
             name: starShip.name,
@@ -73,7 +73,7 @@ export default class SwapiService {
             passengers: starShip.passengers,
             cargoCapacity: starShip.cargoCapacity
         }
-    }
+    };
 }
 
 
