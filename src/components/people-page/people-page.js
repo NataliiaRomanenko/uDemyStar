@@ -18,7 +18,6 @@ export default class PeoplePage extends Component{
 
     }
 
-
     onItemSelected = (id) => {
         this.setState({
             selectedItem: id

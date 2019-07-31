@@ -4,12 +4,12 @@ import Header from "../header";
 import RandomPlanet from "../random-planet";
 
 import ItemDetails from "../item-details";
-import PeoplePage from "../people-page";
 import ErrorButton from "../error-button";
 import SwapiService from "../../services/swapiService";
 import ErrorBoundry from "../error-boundry";
 import Row from "../row";
 import {Record} from "../item-details/item-details";
+import ItemList from "../item-list";
 
 export default class App extends Component{
 
@@ -40,8 +40,24 @@ export default class App extends Component{
               getPlanet,
               getPersonImg,
               getStarShipImg,
-              getPlanetImg} = this.swapiService;
+              getPlanetImg,
+              getAllPeople,
+              getAllStarShips,
+              getAllPlanets} = this.swapiService;
 
+
+        const personList = (
+            <ItemList
+                getData={getAllPeople}
+                onItemSelected = {this.onItemSelected}>
+
+                { ({name}) => <span>{name}</span> }
+
+            </ItemList>
+
+
+
+        )
         const personDetails = (
             <ItemDetails
                 itemId = {12}
@@ -97,11 +113,13 @@ export default class App extends Component{
 
                 {/*<PeoplePage/>*/}
 
-                <Row left = {personDetails}
-                     right = {starShipDetails}/>
+                <Row left = {personList}
+                     right ={personDetails}/>
 
                 <Row left = {planetDetails}
                      right = {null}/>
+
+
 
             </div>
             </ErrorBoundry>
