@@ -2,100 +2,58 @@ import React, {Component} from 'react';
 import './app.css';
 import Header from "../header";
 import RandomPlanet from "../random-planet";
-
-import ItemDetails from "../item-details";
 import ErrorButton from "../error-button";
-import SwapiService from "../../services/swapiService";
 import ErrorBoundry from "../error-boundry";
 import Row from "../row";
-import {Record} from "../item-details/item-details";
-import ItemList from "../item-list";
+import {PersonDetails, PersonList, PlanetDetails, PlanetList, StarShipDetails, StarShipList} from "../sw-components";
 
 export default class App extends Component{
 
-    swapiService = new SwapiService();
-
     state = {
+        selectedPerson: null,
         showRandomPlanet: true
-    }
+    };
+
     toggleRandomPlanet = () => {
         this.setState((state) => {
             return{
                 showRandomPlanet: !state.showRandomPlanet
             }
         })
-    }
+    };
+
     onItemSelected = (id) => {
         this.setState({
             selectedPerson: id
         })
-    }
+
+
+    };
+
     render(){
+        console.log("selectedPerson:", this.state.selectedPerson);
         const planet = this.state.showRandomPlanet ?
             <RandomPlanet/> :
             null;
 
-        const{getPerson,
-              getStarShip,
-              getPlanet,
-              getPersonImg,
-              getStarShipImg,
-              getPlanetImg,
-              getAllPeople,
-              getAllStarShips,
-              getAllPlanets} = this.swapiService;
-
-
         const personList = (
-            <ItemList
-                getData={getAllPeople}
-                onItemSelected = {this.onItemSelected}>
-
+            <PersonList onItemSelected = {this.onItemSelected}>
                 { ({name}) => <span>{name}</span> }
-
-            </ItemList>
-
-
-
-        )
-        const personDetails = (
-            <ItemDetails
-                itemId = {12}
-                getData={getPerson}
-                getImg={getPersonImg}>
-
-                <Record field="gender" label="Gender"/>
-                <Record field="eyeColor" label="Eye Color"/>
-
-            </ItemDetails>
-
-        )
-        const starShipDetails = (
-            <ItemDetails
-                itemId = {5}
-                getData={getStarShip}
-                getImg={getStarShipImg}>
-
-                <Record field="model" label="Model"/>
-                <Record field="length" label="Length"/>
-                <Record field="passengers" label="Passengers"/>
-
-            </ItemDetails>
-
-        )
-        const planetDetails = (
-            <ItemDetails
-                itemId = {5}
-                getData={getPlanet}
-                getImg={getPlanetImg}>
-
-                <Record field="name" label="Name"/>
-                <Record field="population" label="Population"/>
-                <Record field="diameter" label="Diameter"/>
-                <Record field="rotationPeriod" label="Rotation Period"/>
-
-            </ItemDetails>
-        )
+            </PersonList>
+        );
+        const planetList = (
+            <PlanetList onItemSelected = {this.onItemSelected}>
+                { ({name}) => <span>{name}</span> }
+            </PlanetList>
+        );
+        const starShipList = (
+            <StarShipList onItemSelected = {this.onItemSelected}>
+                { ({name}) => <span>{name}</span> }
+            </StarShipList>
+        );
+        const personDetails = <PersonDetails itemId={11}/>;
+        const starShipDetails =  <StarShipDetails itemId={5}/>;
+        const planetDetails = <PlanetDetails itemId={9}/>;
 
 
         return(
@@ -108,18 +66,17 @@ export default class App extends Component{
                             onClick={this.toggleRandomPlanet}>
                       Toggle Random Planet
                     </button>
-                    <ErrorButton/>
-                </div>
 
-                {/*<PeoplePage/>*/}
+                </div>
 
                 <Row left = {personList}
                      right ={personDetails}/>
 
-                <Row left = {planetDetails}
-                     right = {null}/>
+                <Row left = {planetList}
+                     right = {planetDetails}/>
 
-
+                <Row left = {starShipList}
+                     right = {starShipDetails}/>
 
             </div>
             </ErrorBoundry>

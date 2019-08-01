@@ -16,8 +16,6 @@ export {
     Record
 }
 export default class ItemDetails extends Component {
-
-
     state={
         item: null,
         image: null
@@ -48,12 +46,11 @@ export default class ItemDetails extends Component {
 
 
     render() {
-        console.log(this.state.item)
         if(!this.state.item){
             return <span>Select a person from a list</span>;
         }
         const { item, image } = this.state;
-        const { id, name, gender, birthYear, eyeColor} = item;
+        const {name} = item;
         return (
             <div className="person-details card">
                 <img className="person-image"
