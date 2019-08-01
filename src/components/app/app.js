@@ -38,17 +38,17 @@ export default class App extends Component{
 
         const personList = (
             <PersonList onItemSelected = {this.onItemSelected}>
-                { ({name}) => <span>{name}</span> }
+
             </PersonList>
         );
         const planetList = (
             <PlanetList onItemSelected = {this.onItemSelected}>
-                { ({name}) => <span>{name}</span> }
+
             </PlanetList>
         );
         const starShipList = (
             <StarShipList onItemSelected = {this.onItemSelected}>
-                { ({name}) => <span>{name}</span> }
+
             </StarShipList>
         );
         const personDetails = <PersonDetails itemId={11}/>;
