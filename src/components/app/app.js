@@ -48,7 +48,7 @@ export default class App extends Component{
                     <div className="container">
                         <Header />
                         <div className="breadcrumbs">
-                            <Route path='/:path' component={Breadcrumbs} />
+                            <Route path='/:path/' component={Breadcrumbs} />
                         </div>
 
                         {planet}
@@ -61,9 +61,9 @@ export default class App extends Component{
 
                         </div>
                         <Route exact path="/" render={() => <h2>Wellcome to StarDB</h2>} />
-                        <Route path="/people" component={PeoplePage} />
-                        <Route path="/planets" component={PlanetsPage} />
-                        <Route exact path="/starships" component={StarshipsPage} />
+                        <Route path="/people/" component={PeoplePage} />
+                        <Route path="/planets/" component={PlanetsPage} />
+                        <Route exact path="/starships/" component={StarshipsPage} />
                         <Route path="/starships/:id"
                                render={({match, location, history}) => {
                                    const {id} = match.params;
