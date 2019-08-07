@@ -19,7 +19,7 @@ export default class SwapiService {
         return res.results.map(this._transformPerson);
     }
     getPerson = async (id) => {
-        const person = await this.getResource(`/people/${id}`);
+        const person = await this.getResource(`/people/${id}/`);
         return this._transformPerson(person);
     }
     getAllPlanets = async () => {
@@ -27,18 +27,18 @@ export default class SwapiService {
         return res.results.map(this._transformPlanet);
     }
     getPlanet = async (id) => {
-        const planet = await this.getResource(`/planets/${id}`);
+        const planet = await this.getResource(`/planets/${id}/`);
         return this._transformPlanet(planet);
 
     }
     getAllStarShips = async () => {
         const res = await this.getResource(`/starships/`);
-        return res.results.map(this._transformStarShip);
+        return res.results.map(this._transformStarship);
     }
-    getStarShip = async (id) => {
-        const starShip = await this.getResource(`/starships/${id}`);
-        return this._transformStarShip(starShip);
-    }
+    getStarship = async (id) => {
+        const starship = await this.getResource(`/starships/${id}/`);
+        return this._transformStarship(starship);
+    };
 
     getPersonImg  = ({id})=> {
         return `${this._imageBase}/characters/${id}.jpg`
@@ -74,7 +74,7 @@ export default class SwapiService {
             eyeColor: person.eye_color
         }
     };
-    _transformStarShip = (starShip) => {
+    _transformStarship = (starShip) => {
         return{
             id: this._extractId(starShip),
             name: starShip.name,

@@ -1,54 +1,75 @@
 import React from 'react';
-import SwapiService from "../../services/swapiService";
 import {Record} from "../item-details/item-details";
 import ItemDetails from "../item-details";
-
-
-const swapiService = new SwapiService();
-
-const {getPerson,
-       getPlanet,
-       getStarShip,
-       getPersonImg,
-       getStarShipImg,
-       getPlanetImg} = swapiService;
+import {SwapiServiceConsumer} from '../swapi-service-context'
+import BackBtn from "../back-btn";
 
 
 const PersonDetails = ({itemId}) => {
     return(
-        <ItemDetails
-            itemId = {itemId}
-            getData={getPerson}
-            getImg={getPersonImg}>
-            <Record field="gender" label="Gender"/>
-            <Record field="eyeColor" label="Eye Color"/>
-        </ItemDetails>
+        <SwapiServiceConsumer>
+            {
+                ({getPerson, getPersonImg}) => {
+                    return(
+                        <ItemDetails
+                            itemId = {itemId}
+                            getData={getPerson}
+                            getImg={getPersonImg}>
+                            <Record field="gender" label="Gender"/>
+                            <Record field="eyeColor" label="Eye Color"/>
+                        </ItemDetails>
+                    )
+                }
+            }
+        </SwapiServiceConsumer>
     )
 };
 const PlanetDetails = ({itemId}) => {
     return(
-        <ItemDetails
-            itemId = {itemId}
-            getData={getPlanet}
-            getImg={getPlanetImg}>
-            <Record field="name" label="Name"/>
-            <Record field="population" label="Population"/>
-            <Record field="diameter" label="Diameter"/>
-            <Record field="rotationPeriod" label="Rotation Period"/>
-        </ItemDetails>
+        <SwapiServiceConsumer>
+            {
+                ({getPlanet, getPlanetImg}) => {
+                    return (
+                        <ItemDetails
+                            itemId={itemId}
+                            getData={getPlanet}
+                            getImg={getPlanetImg}>
+                            <Record field="name" label="Name"/>
+                            <Record field="population" label="Population"/>
+                            <Record field="diameter" label="Diameter"/>
+                            <Record field="rotationPeriod" label="Rotation Period"/>
+                        </ItemDetails>
+                    )
+                }
+            }
+        </SwapiServiceConsumer>
     )
 };
-const StarShipDetails = ({itemId}) => {
+const StarShipDetails = ({itemId, history}) => {
+    console.log(history);
     return(
-        <ItemDetails
-            itemId = {itemId}
-            getData={getStarShip}
-            getImg={getStarShipImg}>
-            <Record field="model" label="Model"/>
-            <Record field="length" label="Length"/>
-            <Record field="passengers" label="Passengers"/>
+    <SwapiServiceConsumer>
+        {
+            ({getStarship, getStarShipImg}) => {
+                return(
+                    <React.Fragment>
+                        {/*<BackBtn onClick={()=>history.goBack()}/>*/}
+                        <BackBtn history={history}/>
+                    <ItemDetails
+                        itemId = {itemId}
+                        getData={getStarship}
+                        getImg={getStarShipImg}>
+                        <Record field="model" label="Model"/>
+                        <Record field="length" label="Length"/>
+                        <Record field="passengers" label="Passengers"/>
 
-        </ItemDetails>
+                    </ItemDetails>
+                    </React.Fragment>
+                )
+            }
+        }
+
+    </SwapiServiceConsumer>
     )
 };
 export {

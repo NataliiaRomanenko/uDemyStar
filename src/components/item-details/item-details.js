@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ErrorButton from "../error-button";
 import './item-details.css';
+import BackBtn from "../back-btn";
 
 
 const Record = ({item, field, label}) => {
@@ -52,23 +53,24 @@ export default class ItemDetails extends Component {
         const { item, image } = this.state;
         const {name} = item;
         return (
-            <div className="person-details card">
-                <img className="person-image"
-                     src={image} alt={name}
-                />
+                <div className="person-details card">
+                    <img className="person-image"
+                         src={image} alt={name}
+                    />
 
-                <div className="card-body">
-                    <h4>{name}</h4>
-                    <ul className="list-group list-group-flush">
-                        {
-                            React.Children.map(this.props.children, (child) => {
-                            return React.cloneElement(child, {item});
-                            })
-                        }
-                    </ul>
-                    <ErrorButton/>
+                    <div className="card-body">
+                        <h4>{name}</h4>
+                        <ul className="list-group list-group-flush">
+                            {
+                                React.Children.map(this.props.children, (child) => {
+                                return React.cloneElement(child, {item});
+                                })
+                            }
+                        </ul>
+                        <ErrorButton/>
+                    </div>
                 </div>
-            </div>
+
         )
     }
 }

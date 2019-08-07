@@ -8,6 +8,7 @@
     margin: 0;
     padding: .5rem 1rem;
     border-right: 3px;
+    cursor: pointer;
 }
 .header ul li:hover{
     background-color: #444;
@@ -15,7 +16,9 @@
 .header a:hover {
     text-decoration: none;
 }
-
+.header a.active{
+    text-decoration: underline;
+}
 .header h3 a {
     color: white;
 }
