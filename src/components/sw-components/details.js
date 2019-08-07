@@ -45,7 +45,7 @@ const PlanetDetails = ({itemId}) => {
         </SwapiServiceConsumer>
     )
 };
-const StarShipDetails = ({itemId, history}) => {
+const StarShipDetails = ({itemId, history, url}) => {
     console.log(history);
     return(
     <SwapiServiceConsumer>
@@ -53,8 +53,8 @@ const StarShipDetails = ({itemId, history}) => {
             ({getStarship, getStarShipImg}) => {
                 return(
                     <React.Fragment>
-                        {/*<BackBtn onClick={()=>history.goBack()}/>*/}
-                        <BackBtn history={history}/>
+
+                        <BackBtn history={history} url={url}/>
                     <ItemDetails
                         itemId = {itemId}
                         getData={getStarship}

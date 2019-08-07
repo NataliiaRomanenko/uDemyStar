@@ -5,9 +5,10 @@ import RandomPlanet from "../random-planet";
 import ErrorBoundry from "../error-boundry";
 import {SwapiServiceProvider} from "../swapi-service-context"
 import SwapiService from "../../services/swapiService";
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 import {StarShipDetails} from '../sw-components'
+import {Breadcrumbs} from "../breadcrumbs";
 
 export default class App extends Component{
 
@@ -46,10 +47,12 @@ export default class App extends Component{
                     <Router>
                     <div className="container">
                         <Header />
-                        {planet}
-                        <div className="container-fluid breadcrumbs">
+                        <div className="breadcrumbs">
                             <Route path='/:path' component={Breadcrumbs} />
                         </div>
+
+                        {planet}
+
                         <div className="row mb2 button-row">
                             <button className="toggle-planet btn btn-warning btn-lg"
                                     onClick={this.toggleRandomPlanet}>
@@ -65,12 +68,12 @@ export default class App extends Component{
                                render={({match, location, history}) => {
                                    const {id} = match.params;
                                    const historyLink = history;
-                                   const locationLink = location;
-                                   console.log("history", history, "match", match, "location", locationLink);
-                                   return <StarShipDetails itemId={id} history={historyLink}/>
+                                   // const urlName = /\/([a-z]*)/;
+                                   // const url = match.url.match(urlName)[1];
+                                   const url = match.url.split('/')[1];
+                                   return <StarShipDetails itemId={id} history={historyLink} url={url}/>
                                     }
                                } />
-
                     </div>
                     </Router>
                 </SwapiServiceProvider>
@@ -80,12 +83,4 @@ export default class App extends Component{
 };
 
 
-const Breadcrumbs = ({ match }) => (
-    <span>
-      <Link to={match.url || ''} className={match.isExact ? 'breadcrumb active' : 'breadcrumb'}>
-          {match.url.substr(match.url.lastIndexOf('/')+1, match.url.length)}
-      </Link>
-      <Route path={`${match.url}/:path`} component={Breadcrumbs} />
-  </span>
-)
-export {Breadcrumbs}
+
