@@ -46,7 +46,7 @@ const PlanetDetails = ({itemId}) => {
     )
 };
 const StarShipDetails = ({itemId, history, url}) => {
-    console.log(history);
+
     return(
     <SwapiServiceConsumer>
         {

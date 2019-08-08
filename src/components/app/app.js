@@ -8,7 +8,7 @@ import SwapiService from "../../services/swapiService";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 import {StarShipDetails} from '../sw-components'
-import {Breadcrumbs} from "../breadcrumbs";
+import Breadcrumbs from "../breadcrumbs";
 
 export default class App extends Component{
 
@@ -50,7 +50,6 @@ export default class App extends Component{
                         <div className="breadcrumbs">
                             <Route path='/:path/' component={Breadcrumbs} />
                         </div>
-
                         {planet}
 
                         <div className="row mb2 button-row">
@@ -61,8 +60,8 @@ export default class App extends Component{
 
                         </div>
                         <Route exact path="/" render={() => <h2>Wellcome to StarDB</h2>} />
-                        <Route path="/people/" component={PeoplePage} />
-                        <Route path="/planets/" component={PlanetsPage} />
+                        <Route path="/people/:id?" component={PeoplePage} />
+                        <Route path="/planets" component={PlanetsPage} />
                         <Route exact path="/starships/" component={StarshipsPage} />
                         <Route path="/starships/:id"
                                render={({match, location, history}) => {
