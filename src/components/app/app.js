@@ -6,7 +6,12 @@ import ErrorBoundry from "../error-boundry";
 import {SwapiServiceProvider} from "../swapi-service-context"
 import SwapiService from "../../services/swapiService";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
+import {
+    PeoplePage,
+    PlanetsPage,
+    StarshipsPage,
+    LoginPage,
+    SecretPage} from '../pages';
 import {StarShipDetails} from '../sw-components'
 import Breadcrumbs from "../breadcrumbs";
 
@@ -16,9 +21,15 @@ export default class App extends Component{
     swapiService = new SwapiService();
     state = {
         selectedPerson: null,
-        showRandomPlanet: true
+        showRandomPlanet: true,
+        isLogginedIn: false
     };
 
+    onLogin = () => {
+        this.setState({
+            isLogginedIn: true
+        })
+    }
     toggleRandomPlanet = () => {
         this.setState((state) => {
             return{
@@ -40,7 +51,7 @@ export default class App extends Component{
         const planet = this.state.showRandomPlanet ?
             <RandomPlanet/> :
             null;
-
+        const {isLogginedIn} = this.state;
         return(
             <ErrorBoundry>
                 <SwapiServiceProvider value = {this.swapiService}>
@@ -73,6 +84,15 @@ export default class App extends Component{
                                    return <StarShipDetails itemId={id} history={historyLink} url={url}/>
                                     }
                                } />
+                        <Route path="/login" render={()=>(
+                            <LoginPage
+                                isLogginedIn={isLogginedIn}
+                                onLogin={this.onLogin}/>
+                        )}/>
+                        <Route path="/secret" render={()=>(
+                            <SecretPage
+                                isLogginedIn={isLogginedIn}/>
+                        )} />
                     </div>
                     </Router>
                 </SwapiServiceProvider>
